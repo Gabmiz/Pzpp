@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SiecModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="SiecModelStoreContainer">
+    <EntitySet Name="Devices" EntityType="SiecModel.Store.Devices" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Ping" EntityType="SiecModel.Store.Ping" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ID" Association="SiecModel.Store.ID">
+      <End Role="Devices" EntitySet="Devices" />
+      <End Role="Ping" EntitySet="Ping" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Devices">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IP" Type="nchar" Nullable="true" MaxLength="32" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Ping">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Response" Type="bit" Nullable="false" />
+    <Property Name="Time" Type="datetimeoffset" Nullable="true" Precision="7" />
+  </EntityType>
+  <Association Name="ID">
+    <End Role="Devices" Type="SiecModel.Store.Devices" Multiplicity="1" />
+    <End Role="Ping" Type="SiecModel.Store.Ping" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Devices">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Ping">
+        <PropertyRef Name="ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SiecModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Devices">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="IP" Type="String" MaxLength="32" FixedLength="true" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Ping" Relationship="Self.ID" FromRole="Devices" ToRole="Ping" />
+        </EntityType>
+        <EntityType Name="Ping">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Response" Type="Boolean" Nullable="false" />
+          <Property Name="Time" Type="DateTimeOffset" Precision="7" />
+          <NavigationProperty Name="Devices" Relationship="Self.ID" FromRole="Ping" ToRole="Devices" />
+        </EntityType>
+        <Association Name="ID">
+          <End Role="Devices" Type="Self.Devices" Multiplicity="1" />
+          <End Role="Ping" Type="Self.Ping" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Devices">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Ping">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SiecEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Devices" EntityType="Self.Devices" />
+          <EntitySet Name="Ping" EntityType="Self.Ping" />
+          <AssociationSet Name="ID" Association="Self.ID">
+            <End Role="Devices" EntitySet="Devices" />
+            <End Role="Ping" EntitySet="Ping" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SiecModelStoreContainer" CdmEntityContainer="SiecEntities">
+    <EntitySetMapping Name="Devices">
+      <EntityTypeMapping TypeName="IsTypeOf(SiecModel.Devices)">
+        <MappingFragment StoreEntitySet="Devices">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="IP" ColumnName="IP" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ping">
+      <EntityTypeMapping TypeName="IsTypeOf(SiecModel.Ping)">
+        <MappingFragment StoreEntitySet="Ping">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Response" ColumnName="Response" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
