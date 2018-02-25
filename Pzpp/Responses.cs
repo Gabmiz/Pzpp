@@ -12,12 +12,13 @@ namespace Pzpp
     using System;
     using System.Collections.Generic;
     
-    public partial class Ping
+    public partial class Responses
     {
-        public System.Guid ID { get; set; }
-        public bool Response { get; set; }
+        public int Response_ID { get; set; }
+        public Nullable<int> PC_ID { get; set; }
+        public Nullable<bool> Value { get; set; }
         public Nullable<System.DateTimeOffset> Time { get; set; }
     
-        public virtual Devices Devices { get; set; }
+        public virtual Computers Computers { get; set; }
     }
 }

@@ -12,12 +12,19 @@ namespace Pzpp
     using System;
     using System.Collections.Generic;
     
-    public partial class Devices
+    public partial class Computers
     {
-        public System.Guid ID { get; set; }
-        public string IP { get; set; }
-        public string Description { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Computers()
+        {
+            this.Responses = new HashSet<Responses>();
+        }
     
-        public virtual Ping Ping { get; set; }
+        public int PC_ID { get; set; }
+        public string Name { get; set; }
+        public string IP { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Responses> Responses { get; set; }
     }
 }

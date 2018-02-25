@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Pzpp"
         mc:Ignorable="d"
-        Title="Ping your device" Height="600" Width="800">
+        Title="Ping your device" Height="400" Width="600">
    
     <Grid>
         <Grid.ColumnDefinitions>
@@ -15,74 +15,44 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="1.5*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <StackPanel Grid.Column="0" Grid.Row="0" Margin="30" Grid.RowSpan="2">
+        <StackPanel Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Margin="10">
             <TextBlock Text="Give me your IP:" HorizontalAlignment="Center" Margin="5"/>
             <TextBox Text="{Binding IP}" Margin="5"/>
-            <TextBlock Text="Give me description:" HorizontalAlignment="Center" Margin="5"/>
+            <TextBlock Text="Give me Description:" HorizontalAlignment="Center" Margin="5"/>
             <TextBox Text="{Binding Description}" Margin="5"/>
-            <Button Command="{Binding ADD}" Margin="5">
+            <Button Command="{Binding ADD}" Margin="5" Click="Button_Click">
                 <Button.Content>
                     <TextBlock Text="ADD" Typography.Capitals="PetiteCaps"/>
                 </Button.Content>
             </Button>
         </StackPanel>
-        <StackPanel Grid.Column="1" Grid.Row="0" Margin="30" Grid.ColumnSpan="3">
+        <StackPanel Grid.Column="1" Grid.Row="0" Margin="30" Grid.ColumnSpan="2" VerticalAlignment="Center">
             <TextBlock Text="Choose your IP from the list:" HorizontalAlignment="Center" Margin="5"/>
-            <ComboBox Margin="5" SelectionChanged="ComboBox_SelectionChanged" />
-            <Button Command="{Binding Ping}" Margin="5">
+            <ComboBox  ItemsSource="{Binding Path }" DisplayMemberPath="Name" SelectedValuePath="Name" 
+                        SelectedValue="{Binding Path }" Margin="5" SelectionChanged="ComboBox_SelectionChanged"/>
+            <Button Command="{Binding Ping}" Margin="10">
                 <Button.Content>
                     <TextBlock Text="PING" Typography.Capitals="PetiteCaps" />
                 </Button.Content>
             </Button>
-          </StackPanel>
-        <StackPanel Grid.Column="1"  Grid.Row="1" Grid.ColumnSpan="2">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.5*" />
-                    <ColumnDefinition Width="2*" />
-                    <ColumnDefinition Width="0.5*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="0.5*" />
-                    <RowDefinition Height="2*" />
-                    <RowDefinition Height="0.5*" />
-                </Grid.RowDefinitions>
-                <ListView Grid.Column="1"  Grid.Row="1" ItemsSource="{Binding }" BorderBrush="DeepSkyBlue">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="IP" Width="140" DisplayMemberBinding="{Binding IP}"/>
-                            <GridViewColumn Header="Time" Width="140" DisplayMemberBinding="{Binding Time}"/>
-                            <GridViewColumn Header="Response" Width="300" DisplayMemberBinding="{Binding Response}"/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </Grid>        
+            <TextBlock Text="STATUS OF PING:" HorizontalAlignment="Center"/>
+            <TextBlock Text="TRUE" HorizontalAlignment="Center" Foreground="Green" />
+            <TextBlock Text="FALSE" HorizontalAlignment="Center" Foreground="Red"/>
         </StackPanel>
-        <StackPanel Grid.Column="1"  Grid.Row="2" Grid.ColumnSpan="2">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.5*" />
-                    <ColumnDefinition Width="2*" />
-                    <ColumnDefinition Width="0.5*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="0.5*" />
-                    <RowDefinition Height="2*" />
-                    <RowDefinition Height="0.5*" />
-                </Grid.RowDefinitions>
-                <ListView Grid.Column="1"  Grid.Row="1" ItemsSource="{Binding }" BorderBrush="DeepSkyBlue">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="IP" Width="120" DisplayMemberBinding="{Binding IP}"/>
-                            <GridViewColumn Header="Description" Width="300" DisplayMemberBinding="{Binding Description}"/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </Grid>
+        <StackPanel Grid.Column="0" Grid.Row="1" Margin="15" Grid.ColumnSpan="3" VerticalAlignment="Center">
+            <Button Margin="10" Click="Button_Click_1">
+                <Button.Content>
+                    <TextBlock Text="Show computers list" Typography.Capitals="PetiteCaps" />
+                </Button.Content>
+            </Button>
+            <Button Margin="10" Click="Button_Click_2">
+                <Button.Content>
+                    <TextBlock Text="Show responses list" Typography.Capitals="PetiteCaps" />
+                </Button.Content>
+            </Button>
         </StackPanel>
     </Grid>
 </Controls:MetroWindow>

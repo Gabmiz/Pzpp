@@ -13,10 +13,10 @@ namespace Pzpp
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class SiecEntities : DbContext
+    public partial class SiecEntities2 : DbContext
     {
-        public SiecEntities()
-            : base("name=SiecEntities")
+        public SiecEntities2()
+            : base("name=SiecEntities2")
         {
         }
     
@@ -25,7 +25,7 @@ namespace Pzpp
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Devices> Devices { get; set; }
-        public virtual DbSet<Ping> Ping { get; set; }
+        public virtual DbSet<Computers> Computers { get; set; }
+        public virtual DbSet<Responses> Responses { get; set; }
     }
 }
