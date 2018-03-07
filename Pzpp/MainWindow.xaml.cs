@@ -27,7 +27,7 @@ namespace Pzpp
     {
         public class Computers
         {
-            private string _connectionString = @"Data Source=GABINB\KURS;Initial Catalog=Siec;Integrated Security=True";
+           
         }
 
         public bool IsValidateIP(string Address)
